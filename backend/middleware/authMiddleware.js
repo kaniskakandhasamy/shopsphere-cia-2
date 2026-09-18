@@ -23,7 +23,7 @@ const protect = async (req, res, next) => {
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || 'shopsphere_super_secret_jwt_key_2026'
+      process.env.JWT_SECRET || process.env.SESSION_SECRET || 'shopsphere_super_secret_jwt_key_2026'
     );
     const user = await User.findById(decoded.id).select('-password');
     if (!user) {

@@ -12,7 +12,7 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL || 'http://localhost:5173',
   'http://127.0.0.1:5173'
-];
+].filter(Boolean);
 
 app.use(
   cors({
@@ -21,7 +21,7 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
-      return callback(null, true); // Dev convenience
+      return callback(new Error('Origin is not allowed by CORS'));
     },
     credentials: true
   })
